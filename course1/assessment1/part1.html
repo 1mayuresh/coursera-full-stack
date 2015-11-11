@@ -1,0 +1,106 @@
+<html>
+
+<head>
+  <title>Part1</title>
+  <meta charset="utf-8" />
+  <meta name="description" content="Coursera HTML+CSS+JS course, Part 1">
+  <meta name="author" content="Jakob Wanner">
+</head>
+
+<body>
+  <h1>Please Enter Your Details For Our Dating Website!</h1>
+  <form action="http://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php" method="POST" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Your Face</legend>
+      <div>
+        <label for="img-your-face">Your image:</label>
+        <input id="img-your-face" name="preview" type="file" required>
+      </div>
+      <div>
+        <label for="preview">Image preview:</label>
+        <img id="preview">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your General Details</legend>
+      <div>
+        <label for="name">Name:</label>
+        <input id="name" name="name" type="text" required>
+      </div>
+      <div>
+        <label for="gender">Gender:</label>
+        <span id="gender">
+          <input id="male" name="gender" type="radio" value="Male">
+          <label for="male">Male</label>
+          <input id="female" name="female" type="radio" value="Female">
+          <label for="female">Female</label>
+        </span>
+      </div>
+      <div>
+        <label for="age">Age:</label>
+        <input id="age" name="age" type="number">
+      </div>
+      <div>
+        <label for="dob">Date of birth:</label>
+        <input id="dob" name="dob" type="date">
+      </div>
+      <div>
+        <label for="color">Color:</label>
+        <input id="color" name="color" type="color">
+      </div>
+      <div>
+        <label for="country">Which Country:</label>
+        <select id="country" name="country">
+          <option value="no-selection">No Selection</option>
+          <option value="switzerland">Switzerland</option>
+          <option value="germany">Germany</option>
+          <option value="france">France</option>
+          <option value="sweden">Sweden</option>
+          <option value="austria">Austria</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your Indicators</legend>
+      <div>
+        <label for="height">Height:</label>
+        <input id="height" name="height" type="range" min="0" max="100">
+      </div>
+      <div>
+        <label for="salary">Salary:</label>
+        <input id="salary" name="salary" type="range" min="0" max="100">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your Contact Information</legend>
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" name="email" type="email" required>
+      </div>
+      <div>
+        <label for="mobile">Mobile:</label>
+        <input id="mobile" name="mobile" type="tel">
+      </div>
+      <div>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" cols="40" rows="4"></textarea>
+      </div>
+      <div>
+        <label for="contact-method">Method to contact you:</label>
+        <span id="contact-method">
+          <input id="by-email" name="contact-method" type="radio" value="email">
+          <label for="by-email">Email</label>
+          <input id="by-whatsapp" name="contact-method" type="radio" value="whatsapp">
+          <label for="by-email">Whatsapp</label>
+          <input id="by-chat" name="contact-method" type="radio" value="chat">
+          <label for="by-chat">In-app chat</label>
+        </span>
+      </div>
+    </fieldset>
+    <input type="submit" value="Submit" />
+  </form>
+</body>
+</html>
