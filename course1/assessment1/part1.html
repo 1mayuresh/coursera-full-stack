@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Part1</title>
+  <title>Part1 - Dating Website</title>
   <meta charset="utf-8" />
   <meta name="description" content="Coursera HTML+CSS+JS course, Part 1">
   <meta name="author" content="Jakob Wanner">
@@ -9,12 +9,12 @@
 
 <body>
   <h1>Please Enter Your Details For Our Dating Website!</h1>
-  <form action="http://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php" method="POST" enctype="multipart/form-data">
+  <form action="https://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php" method="POST" enctype="multipart/form-data">
     <fieldset>
       <legend>Your Face</legend>
       <div>
         <label for="img-your-face">Your image:</label>
-        <input id="img-your-face" name="preview" type="file" required>
+        <input id="img-your-face" name="image" type="file" required>
       </div>
       <div>
         <label for="preview">Image preview:</label>
@@ -66,11 +66,15 @@
       <legend>Your Indicators</legend>
       <div>
         <label for="height">Height:</label>
+        <span>Short</span>
         <input id="height" name="height" type="range" min="0" max="100">
+        <span>Tall</span>
       </div>
       <div>
         <label for="salary">Salary:</label>
+        <span>Poor</span>
         <input id="salary" name="salary" type="range" min="0" max="100">
+        <span>Rich</span>
       </div>
     </fieldset>
 
@@ -91,11 +95,11 @@
       <div>
         <label for="contact-method">Method to contact you:</label>
         <span id="contact-method">
-          <input id="by-email" name="contact-method" type="radio" value="email">
+          <input id="by-email" name="contact-method" type="checkbox" value="email">
           <label for="by-email">Email</label>
-          <input id="by-whatsapp" name="contact-method" type="radio" value="whatsapp">
+          <input id="by-whatsapp" name="contact-method" type="checkbox" value="whatsapp">
           <label for="by-email">Whatsapp</label>
-          <input id="by-chat" name="contact-method" type="radio" value="chat">
+          <input id="by-chat" name="contact-method" type="checkbox" value="chat">
           <label for="by-chat">In-app chat</label>
         </span>
       </div>

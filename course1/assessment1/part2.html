@@ -1,24 +1,155 @@
 <html>
 
 <head>
-  <title>Part1</title>
+  <title>Part2 - Dating Website</title>
   <meta charset="utf-8" />
+  <meta name="description" content="Coursera HTML+CSS+JS course, Part 2">
+  <meta name="author" content="Jakob Wanner">
   <style>
-    label:hover, input:hover, select:hover {
-      font-size: 1.5em;
+    fieldset {
+      background: lightyellow;
+      border: 10px solid yellow;
+      margin-bottom: 10px;
+      width: 720px;
+    }
+
+    label {
+      width: 180px;
+      display: inline-block;
+      text-align: right;
+      vertical-align: text-top;
+    }
+
+    textarea {
+        width: 360px;
+        height: 50px;
+    }
+
+    .auto-width {
+      width: auto;
+    }
+
+    .range {
+      text-align: center;
+      color: white;
+      width: 50px;
+      height: 25px;
+      display: block;
+      float: left;
+    }
+
+    .bg-red {
+      background-color: red;
+    }
+
+    .bg-violet {
+      background-color: violet;
+    }
+
+    .left-aligned {
+      float: left;
     }
   </style>
 </head>
 
 <body>
-  <form action="#" method="POST">
-    <div></div>
-    <input type="text" name="name" />
-      <div></div>
-    <input type="range" min="5" max="20" />
-      <div></div>
-    <input type="submit" value="Hier klicken" />
+  <h1>Please Enter Your Details For Our Dating Website!</h1>
+  <form action="https://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php" method="POST" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Your Face</legend>
+      <div>
+        <label for="img-your-face">Your image:</label>
+        <input id="img-your-face" name="image" type="file" required>
+      </div>
+      <div>
+        <label for="preview">Image preview:</label>
+        <img id="preview">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your General Details</legend>
+      <div>
+        <label for="name">Name:</label>
+        <input id="name" name="name" type="text" required>
+      </div>
+      <div>
+        <label for="gender">Gender:</label>
+        <span id="gender">
+          <input id="male" name="gender" type="radio" value="Male">
+          <label for="male" class="auto-width">Male</label>
+          <input id="female" name="female" type="radio" value="Female">
+          <label for="female" class="auto-width">Female</label>
+        </span>
+      </div>
+      <div>
+        <label for="age">Age:</label>
+        <input id="age" name="age" type="number">
+      </div>
+      <div>
+        <label for="dob">Date of birth:</label>
+        <input id="dob" name="dob" type="date">
+      </div>
+      <div>
+        <label for="color">Color:</label>
+        <input id="color" name="color" type="color">
+      </div>
+      <div>
+        <label for="country">Which Country:</label>
+        <select id="country" name="country">
+          <option value="no-selection">No Selection</option>
+          <option value="switzerland">Switzerland</option>
+          <option value="germany">Germany</option>
+          <option value="france">France</option>
+          <option value="sweden">Sweden</option>
+          <option value="austria">Austria</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your Indicators</legend>
+      <div class="left-aligned">
+        <label for="height" class="left-aligned">Height:</label>
+        <span class="range bg-red">Short</span>
+        <input id="height" class="left-aligned" name="height" type="range" min="0" max="100">
+        <span class="range bg-violet">Tall</span>
+      </div>
+      <div class="left-aligned">
+        <label for="salary" class="left-aligned">Salary:</label>
+        <span class="range bg-red">Poor</span>
+        <input id="salary" class="left-aligned" name="salary" type="range" min="0" max="100">
+        <span class="range bg-violet">Rich</span>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your Contact Information</legend>
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" name="email" type="email" required>
+      </div>
+      <div>
+        <label for="mobile">Mobile:</label>
+        <input id="mobile" name="mobile" type="tel">
+      </div>
+      <div>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" cols="40" rows="4"></textarea>
+      </div>
+      <div>
+        <label for="contact-method">Method to contact you:</label>
+        <span id="contact-method">
+          <input id="by-email" name="contact-method" type="checkbox" value="email">
+          <label for="by-email" class="auto-width">Email</label>
+          <input id="by-whatsapp" name="contact-method" type="checkbox" value="whatsapp">
+          <label for="by-email" class="auto-width">Whatsapp</label>
+          <input id="by-chat" name="contact-method" type="checkbox" value="chat">
+          <label for="by-chat" class="auto-width">In-app chat</label>
+        </span>
+      </div>
+    </fieldset>
+    <input type="submit" value="Submit" />
   </form>
 </body>
-
 </html>
