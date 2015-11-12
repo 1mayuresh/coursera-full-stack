@@ -28,3 +28,37 @@ address {
     margin: 0;
     color: #0f0f0f;
 }
+
+body {
+    padding: 50px 0 0 0;
+    z-index: 0;
+}
+
+.navbar-inverse {
+    background: #303f9f;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background: #1a237e;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #fff;
+    background: #1a237e;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
+.navbar-inverse .navbar-nav .open .dropdown-menu {
+    color: #eee;
+    background: #303f9f;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #000;
+    background: #eee;
+}
