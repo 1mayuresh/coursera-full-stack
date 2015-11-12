@@ -38,19 +38,19 @@
         function check_guess() {
             var index = colors.indexOf(guess_input);
 
-            if (index < 0) {
+            if (part1 < 0) {
                 alert("I don't recognize!");
 
                 return false;
             }
 
-            if (index > target_index) {
+            if (part1 > target_index) {
                 alert("Your color is higher!");
 
                 return false;
             }
 
-            if (index < target_index) {
+            if (part1 < target_index) {
                 alert("Your color is lower!");
 
                 return false;
