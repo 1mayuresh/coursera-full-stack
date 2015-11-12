@@ -21,8 +21,8 @@
 
             do {
                 guess_input = prompt("I am thinking of one of these colors: \n\n"+
-                        colors.join(', ') +
-                        "\n\nWhat color am I thinking of?"
+                    colors.join(', ') +
+                    "\n\nWhat color am I thinking of?"
                 );
 
                 count_guesses++;
@@ -40,16 +40,19 @@
 
             if (index < 0) {
                 alert("I don't recognize!");
+
                 return false;
             }
 
             if (index > target_index) {
                 alert("Your color is higher!");
+
                 return false;
             }
 
             if (index < target_index) {
                 alert("Your color is lower!");
+
                 return false;
             }
 
