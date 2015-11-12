@@ -8,16 +8,17 @@
     <script>
         var colors = ["gray", "blue", "cyan", "gold", "magenta", "orange", "red", "white", "yellow"];
         var target_index = 0;
-        var target;
         var guess_input;
         var count_guesses = 0;
 
         function do_game() {
             // in case the colors array is not sorted we sort it here
             colors.sort();
-            console.log(colors);
+
             target_index = Math.floor(Math.random() * colors.length);
             target = colors[target_index];
+
+            console.log("Here is the target for debug purposes: " + target);
 
             do {
                 guess_input = prompt("I am thinking of one of these colors: \n\n"+
@@ -38,20 +39,20 @@
         function check_guess() {
             var index = colors.indexOf(guess_input);
 
-            if (part1 < 0) {
-                alert("I don't recognize!");
+            if (index < 0) {
+                alert("I don't recognize that color!\n\nPlease try again.");
 
                 return false;
             }
 
-            if (part1 > target_index) {
-                alert("Your color is higher!");
+            if (index > target_index) {
+                alert("Your input is alphabetically higher than mine!\n\nPlease try again.");
 
                 return false;
             }
 
-            if (part1 < target_index) {
-                alert("Your color is lower!");
+            if (index < target_index) {
+                alert("Your input is alphabetically lower than mine!\n\nPlease try again.");
 
                 return false;
             }
