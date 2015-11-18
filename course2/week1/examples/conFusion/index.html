@@ -18,6 +18,21 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        /* As we cannot edit the CSS files in the assessment some styles are given here*/
+
+        /* Prevent navbar from overlapping the body when navbar extends to two rows */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            body {
+                padding: 150px 0 0 0;
+            }
+        }
+
+        /* Ensure labels in the navbar are white */
+        .navbar-inverse .navbar-nav .navbar-form label {
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,10 +83,6 @@
                         </form>
                     </li>
                 </ul>
-                <!--<ul class="nav navbar-nav navbar-right">-->
-                    <!--<li><a href="#">Sign In</a></li>-->
-                    <!--<li><a href="#">Contact</a></li>-->
-                <!--</ul>-->
             </div>
         </div>
     </nav>
@@ -92,6 +103,7 @@
                     <img src="img/logo.png" class="img-responsive">
                 </div>
                 <div class="col-xs-12 col-sm-2">
+                    <p style="padding:40px;"></p>
                     <a class="btn btn-warning btn-block" href="#reserve-table">Reserve Table</a>
                 </div>
             </div>
