@@ -34,12 +34,6 @@ body {
     z-index: 0;
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
-    body {
-        padding: 100px 0 0 0;
-    }
-}
-
 .navbar-inverse {
     background: #303f9f;
 }
@@ -67,10 +61,6 @@ body {
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
     color: #000;
     background: #eee;
-}
-
-.navbar-inverse .navbar-nav .navbar-form label {
-    color: #fff;
 }
 
 .tab-content {
