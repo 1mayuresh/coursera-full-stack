@@ -57,7 +57,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a data-toggle="modal" data-target="#loginModal" href="#">
+                        <a id="login-link" href="#">
                             <span class="glyphicon glyphicon-log-in"></span> Login
                         </a>
                     </li>
@@ -66,7 +66,7 @@
         </div>
     </nav>
 
-    <div id="loginModal" class="modal fade" role="dialog">
+    <div id="login-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -93,7 +93,7 @@
         </div>
     </div>
 
-    <div id="reservationModal" class="modal fade" role="dialog">
+    <div id="reservation-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -205,11 +205,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <p style="padding:40px;"></p>
-
-                    <!-- Only the bootstrap tooltip has been removed. The default "title" tooltip of the browser has been kept. -->
-                    <a type="button" class="btn btn-warning btn-block"
-                       title="Or Call us at +852 12345678"
-                       data-toggle="modal" data-target="#reservationModal" href="#">Reserve Table</a>
+                    <a id="reservation-link" type="button" class="btn btn-warning btn-block" href="#">Reserve Table</a>
                 </div>
             </div>
         </div>
@@ -417,11 +413,29 @@
     <script>
         $(document).ready(function(){
             $("#mycarousel").carousel( { interval: 2000 } );
+
             $("#carousel-pause").click(function(){
                 $("#mycarousel").carousel('pause');
             });
+
             $("#carousel-play").click(function(){
                 $("#mycarousel").carousel('cycle');
+            });
+
+            $("#reservation-modal").modal({
+                show: false
+            });
+
+            $("#reservation-link").click(function() {
+                $("#reservation-modal").modal('show');
+            });
+
+            $("#login-modal").modal({
+                show: false
+            });
+
+            $("#login-link").click(function() {
+                $("#login-modal").modal('show');
             });
         });
     </script>
