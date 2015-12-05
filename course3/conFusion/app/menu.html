@@ -29,26 +29,26 @@
         <div class="row row-content" ng-controller="menuController as menuCtrl">
             <div class="col-xs-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation">
-                        <a
+                    <li role="presentation" ng-class="{active:menuCtrl.isSelected(1)}">
+                        <a ng-click="menuCtrl.select(1)" href="#"
                                 aria-controls="all menu"
                                 role="tab">The Menu</a></li>
-                    <li role="presentation">
-                        <a
+                    <li role="presentation" ng-class="{active:menuCtrl.isSelected(2)}">
+                        <a ng-click="menuCtrl.select(2)" href="#"
                                 aria-controls="appetizers"
                                 role="tab">Appetizers</a></li>
-                    <li role="presentation">
-                        <a
+                    <li role="presentation" ng-class="{active:menuCtrl.isSelected(3)}">
+                        <a ng-click="menuCtrl.select(3)" href="#"
                                 aria-controls="mains"
                                 role="tab">Mains</a></li>
-                    <li role="presentation">
-                        <a
+                    <li role="presentation" ng-class="{active:menuCtrl.isSelected(4)}">
+                        <a ng-click="menuCtrl.select(4)" href="#"
                                 aria-controls="desserts"
                                 role="tab">Desserts</a></li>
                 </ul>
                 <div class="tab-content">
                     <ul class="media-list tab-pane fade in active">
-                        <li class="media" ng-repeat="dish in menuCtrl.dishes">
+                        <li class="media" ng-repeat="dish in menuCtrl.dishes | filter:menuCtrl.filtText">
                             <div class="media-left media-middle">
                                 <a href="#">
                                     <img class="media-object img-thumbnail"
@@ -64,18 +64,19 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>
 
     <script src="../bower_components/angular/angular.min.js"></script>
     <script>
+
         var app = angular.module('confusionApp', []);
         app.controller('menuController', function() {
+            var self = this;
             this.tab = 1;
 
-            var dishes = [
+            this.dishes = [
                 {
                     name: 'Uthapizza',
                     image: 'images/uthapizza.png',
@@ -114,7 +115,27 @@
                 }
             ];
 
-            this.dishes = dishes;
+            this.filtText = '';
+
+            this.select = function(tab) {
+                this.tab = tab;
+
+                if (tab === 2) {
+                    this.filtText = "appetizer";
+                } else if (tab === 3) {
+                    this.filtText = "mains";
+                } else if (tab === 4) {
+                    this.filtText = "dessert";
+                } else {
+                    this.filtText = "";
+                }
+            };
+
+            this.isSelected = function(tab) {
+                return this.tab === tab;
+            };
+
+
         });
     </script>
 </body>
