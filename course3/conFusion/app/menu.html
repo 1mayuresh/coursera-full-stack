@@ -48,7 +48,7 @@
                 </ul>
                 <div class="tab-content">
                     <ul class="media-list tab-pane fade in active">
-                        <li class="media" ng-repeat="dish in menuCtrl.dishes | filter:menuCtrl.filtText">
+                        <li class="media" ng-repeat="dish in menuCtrl.dishes | filter:menuCtrl.filtObj">
                             <div class="media-left media-middle">
                                 <a href="#">
                                     <img class="media-object img-thumbnail"
@@ -116,25 +116,29 @@
             ];
 
             this.filtText = '';
+            this.filtObj = { category: ""};
 
             this.select = function(tab) {
                 this.tab = tab;
 
                 if (tab === 2) {
                     this.filtText = "appetizer";
+                    this.filtObj = { category: "appetizer"};
                 } else if (tab === 3) {
                     this.filtText = "mains";
+                    this.filtObj = { category: "mains"};
                 } else if (tab === 4) {
                     this.filtText = "dessert";
+                    this.filtObj = { category: "dessert"};
                 } else {
                     this.filtText = "";
+                    this.filtObj = { category: ""};
                 }
             };
 
             this.isSelected = function(tab) {
                 return this.tab === tab;
             };
-
 
         });
     </script>
