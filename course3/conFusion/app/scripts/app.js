@@ -1,7 +1,9 @@
-'use strict';
 
 var app = angular.module('confusionApp', []);
+
 app.controller('menuController', function() {
+    'use strict';
+
     var self = this;
     this.tab = 1;
 

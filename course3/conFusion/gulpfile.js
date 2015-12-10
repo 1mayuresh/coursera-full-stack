@@ -11,7 +11,7 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     changed = require('gulp-changed'),
     rev = require('gulp-rev'),
-    browserSync = require('browser-sync'),
+//    browserSync = require('browser-sync'),
     del = require('del');
 
 
@@ -44,8 +44,8 @@ gulp.task('usemin',['jshint'], function () {
 gulp.task('imagemin', function() {
     return del(['dist/images']), gulp.src('app/images/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-        .pipe(gulp.dest('dist/images'))
-        .pipe(notify({ message: 'Images task complete' }));
+        .pipe(gulp.dest('dist/images'));
+        //.pipe(notify({ message: 'Images task complete' }));
 });
 
 gulp.task('copyfonts', ['clean'], function() {
@@ -56,7 +56,7 @@ gulp.task('copyfonts', ['clean'], function() {
 });
 
 // Watch
-gulp.task('watch', ['browser-sync'], function() {
+gulp.task('watch', ['default'], function() {
     // Watch .js files
     gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin']);
     // Watch image files
@@ -64,21 +64,22 @@ gulp.task('watch', ['browser-sync'], function() {
 
 });
 
-gulp.task('browser-sync', ['default'], function () {
-    var files = [
-        'app/**/*.html',
-        'app/styles/**/*.css',
-        'app/images/**/*.png',
-        'app/scripts/**/*.js',
-        'dist/**/*'
-    ];
-
-    browserSync.init(files, {
-        server: {
-            baseDir: "dist",
-            index: "menu.html"
-        }
-    });
-    // Watch any files in dist/, reload on change
-    gulp.watch(['dist/**']).on('change', browserSync.reload);
-});
+// doesnßt work without Visual Studio C++ compiler...
+//gulp.task('browser-sync', ['default'], function () {
+//    var files = [
+//        'app/**/*.html',
+//        'app/styles/**/*.css',
+//        'app/images/**/*.png',
+//        'app/scripts/**/*.js',
+//        'dist/**/*'
+//    ];
+//
+//    browserSync.init(files, {
+//        server: {
+//            baseDir: "dist",
+//            index: "menu.html"
+//        }
+//    });
+//    // Watch any files in dist/, reload on change
+//    gulp.watch(['dist/**']).on('change', browserSync.reload);
+//});
