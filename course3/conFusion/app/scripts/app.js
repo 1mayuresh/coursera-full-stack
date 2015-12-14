@@ -1,13 +1,12 @@
 
 var app = angular.module('confusionApp', []);
 
-app.controller('menuController', function() {
+app.controller('MenuController', ['$scope', function($scope) {
     'use strict';
 
-    var self = this;
-    this.tab = 1;
+    $scope.tab = 1;
 
-    this.dishes = [
+    $scope.dishes = [
         {
             name: 'Uthapizza',
             image: 'images/uthapizza.png',
@@ -46,29 +45,34 @@ app.controller('menuController', function() {
         }
     ];
 
-    this.filtText = '';
-    this.filtObj = { category: ""};
+    $scope.filtText = '';
+    $scope.filtObj = { category: ""};
 
-    this.select = function(tab) {
-        this.tab = tab;
+    $scope.select = function(tab) {
+        $scope.tab = tab;
 
         if (tab === 2) {
-            this.filtText = "appetizer";
-            this.filtObj = { category: "appetizer"};
+            $scope.filtText = "appetizer";
+            $scope.filtObj = { category: "appetizer"};
         } else if (tab === 3) {
-            this.filtText = "mains";
-            this.filtObj = { category: "mains"};
+            $scope.filtText = "mains";
+            $scope.filtObj = { category: "mains"};
         } else if (tab === 4) {
-            this.filtText = "dessert";
-            this.filtObj = { category: "dessert"};
+            $scope.filtText = "dessert";
+            $scope.filtObj = { category: "dessert"};
         } else {
-            this.filtText = "";
-            this.filtObj = { category: ""};
+            $scope.filtText = "";
+            $scope.filtObj = { category: ""};
         }
     };
 
-    this.isSelected = function(tab) {
-        return this.tab === tab;
+    $scope.isSelected = function(tab) {
+        return $scope.tab === tab;
     };
 
-});
+    $scope.showDetails = false;
+
+    $scope.toggleDetails = function() {
+        $scope.showDetails = !$scope.showDetails;
+    };
+}]);
