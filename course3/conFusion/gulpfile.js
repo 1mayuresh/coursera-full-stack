@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
     rev = require('gulp-rev'),
 //    browserSync = require('browser-sync'),
-    ngannotate = require('gulp-ng-annotate')
+    ngannotate = require('gulp-ng-annotate'),
+    foreach = require('gulp-foreach'),
     del = require('del');
 
 
@@ -33,17 +34,22 @@ gulp.task('default', ['clean'], function() {
 });
 
 gulp.task('usemin',['jshint'], function () {
-    return gulp.src('./app/menu.html')
-        .pipe(usemin({
-            css:[minifycss(),rev()],
-            js: [ngannotate(),uglify(),rev()]
-        }))
-        .pipe(gulp.dest('dist/'));
+    return gulp.src('./app/*.html')
+        .pipe(foreach(function(stream, file) {
+            return stream
+                .pipe(usemin({
+                    css:[minifycss(),rev()],
+                    js: [ngannotate(),uglify(),rev()]
+                }))
+                .pipe(gulp.dest('dist/'));
+        }));
 });
 
 // Images
 gulp.task('imagemin', function() {
-    return del(['dist/images']), gulp.src('app/images/**/*')
+    del(['dist/images']);
+
+    return gulp.src('app/images/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
         .pipe(gulp.dest('dist/images'));
         //.pipe(notify({ message: 'Images task complete' }));
