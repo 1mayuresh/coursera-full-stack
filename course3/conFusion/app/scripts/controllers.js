@@ -86,3 +86,13 @@ app.controller('DishCommentController', ['$scope', function($scope) {
         $scope.comment = angular.copy(blankComment);
     };
 }]);
+
+app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function($scope, menuFactory, corporateFactory) {
+    $scope.promotion = menuFactory.getPromotion(0);
+    $scope.featuredDish = menuFactory.getDish(0);
+    $scope.chef = corporateFactory.getLeader(3);
+}]);
+
+app.controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
+    $scope.leaders = corporateFactory.getLeaders();
+}]);

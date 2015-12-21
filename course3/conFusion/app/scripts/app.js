@@ -12,7 +12,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: 'views/header.html'
                 },
                 'content': {
-                    template: '<h1>To Be Completed</h1>',
+                    templateUrl: 'views/home.html',
                     controller: 'IndexController'
                 },
                 'footer': {
@@ -25,7 +25,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: 'aboutus',
             views: {
                 'content@': {
-                    template: '<h1>To be completed</h1>',
+                    templateUrl: 'views/aboutus.html',
                     controller: 'AboutController'
                 }
             }
