@@ -16,6 +16,7 @@ var gulp = require('gulp'),
     foreach = require('gulp-foreach'),
     del = require('del');
 
+var serverDir = '../json-server/public';
 
 gulp.task('jshint', function() {
     return gulp.src('app/scripts/**/*.js')
@@ -28,13 +29,21 @@ gulp.task('clean', function() {
     return del(['dist']);
 });
 
+gulp.task('cleanserverdir', function() {
+    return del([serverDir]);
+});
+
+gulp.task('clear', function(done){
+    return cache.clearAll(done);
+});
+
 // Default
 gulp.task('default', ['clean'], function() {
-    gulp.start('usemin', 'imagemin', 'copyfonts');
+    gulp.start('usemin', 'imagemin', 'copyfonts', 'copyserver');
 });
 
 gulp.task('usemin',['jshint'], function () {
-    return gulp.src('./app/*.html')
+    return gulp.src('./app/**/*.html')
         .pipe(foreach(function(stream, file) {
             return stream
                 .pipe(usemin({
@@ -60,6 +69,11 @@ gulp.task('copyfonts', ['clean'], function() {
         .pipe(gulp.dest('./dist/fonts'));
     gulp.src('./bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,eof,svg}*')
         .pipe(gulp.dest('./dist/fonts'));
+});
+
+gulp.task('copyserver', ['cleanserverdir', 'usemin'], function() {
+   return gulp.src('dist/**/*')
+       .pipe(gulp.dest(serverDir));
 });
 
 // Watch
