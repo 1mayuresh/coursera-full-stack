@@ -1,8 +1,7 @@
-'use strict';
-
 var app = angular.module('confusionApp', ['ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
+    'use strict';
     $stateProvider
         // route for the home page
         .state('app', {

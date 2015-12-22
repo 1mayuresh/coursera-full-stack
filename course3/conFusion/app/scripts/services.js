@@ -1,8 +1,8 @@
-'use strict';
-
 var app = angular.module('confusionApp');
 
 app.service('menuFactory', function() {
+    'use strict';
+
     var dishes=[
         {
             _id: 0,
