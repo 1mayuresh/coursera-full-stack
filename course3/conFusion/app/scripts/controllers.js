@@ -6,10 +6,19 @@ app.controller('MenuController', ['$scope', 'menuFactory', function($scope, menu
 
     $scope.tab = 1;
     $scope.filtObj = { category: ""};
-    $scope.showMenu = true;
+    $scope.showMenu = false;
     $scope.message = 'Loading...';
 
-    $scope.dishes = menuFactory.getDishes().query();
+    $scope.dishes = menuFactory.getDishes().query(
+        function(response) {
+            $scope.dishes = response;
+            $scope.showMenu = true;
+        },
+        function(response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+            $scope.showMenu = false;
+        }
+    );
 
     $scope.select = function(tab) {
         $scope.tab = tab;
@@ -69,13 +78,23 @@ app.controller('FeedbackController', ['$scope', function($scope) {
 }]);
 
 app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
-    $scope.showDish = true;
+    $scope.showDish = false;
     $scope.message = 'Loading ...';
 
-    $scope.dish = menuFactory.getDishes().get({id: parseInt($stateParams.id, 10)});
+    $scope.dish = menuFactory.getDishes().get({id: parseInt($stateParams.id, 10)})
+        .$promise.then(
+            function(response) {
+                $scope.dish = response;
+                $scope.showDish = true;
+            },
+            function(response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+                $scope.showDish = false;
+            }
+        );
 }]);
 
-app.controller('DishCommentController', ['$scope', function($scope) {
+app.controller('DishCommentController', ['$scope', 'menuFactory', function($scope, menuFactory) {
     var blankComment = {
         rating: 5,
         comment:"",
@@ -88,6 +107,7 @@ app.controller('DishCommentController', ['$scope', function($scope) {
     $scope.submitComment = function () {
         $scope.comment.date = new Date().toISOString();
         $scope.dish.comments.push($scope.comment);
+        menuFactory.getDishes().update({id: $scope.dish.id}, $scope.dish);
         $scope.commentForm.$setPristine();
         $scope.comment = angular.copy(blankComment);
     };
@@ -95,10 +115,20 @@ app.controller('DishCommentController', ['$scope', function($scope) {
 
 app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function($scope, menuFactory, corporateFactory) {
     $scope.promotion = menuFactory.getPromotion(0);
-    $scope.showDish = true;
+    $scope.showDish = false;
     $scope.message = 'Loading ...';
 
-    $scope.featuredDish = menuFactory.getDishes().get({id: 0});
+    $scope.featuredDish = menuFactory.getDishes().get({id: 0})
+        .$promise.then(
+            function(response) {
+                $scope.featuredDish = response;
+                $scope.showDish = true;
+            },
+            function(response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+                $scope.showDish = false;
+            }
+        );
     $scope.chef = corporateFactory.getLeader(3);
 }]);
 
