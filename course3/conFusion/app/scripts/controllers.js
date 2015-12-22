@@ -6,12 +6,19 @@ app.controller('MenuController', ['$scope', 'menuFactory', function($scope, menu
 
     $scope.tab = 1;
     $scope.filtObj = { category: ""};
-    $scope.dishes = {};
+    $scope.dishes = [];
+    $scope.showMenu = false;
+    $scope.message = 'Loading...';
 
     menuFactory.getDishes()
         .then(
             function(response) {
                 $scope.dishes = response.data;
+                $scope.showMenu = true;
+            },
+            function(response) {
+                $scope.message = 'Error: ' + response.status + " " + response.statusText;
+                $scope.showMenu = false;
             }
         );
 
@@ -74,10 +81,18 @@ app.controller('FeedbackController', ['$scope', function($scope) {
 
 app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
     $scope.dish = {};
+    $scope.showDish = false;
+    $scope.message = 'Loading ...';
+
     menuFactory.getDish(parseInt($stateParams.id, 10))
         .then(
             function(response) {
                 $scope.dish = response.data;
+                $scope.showDish = true;
+            },
+            function(response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+                $scope.showDish = false;
             }
         );
 }]);
@@ -103,9 +118,17 @@ app.controller('DishCommentController', ['$scope', function($scope) {
 app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function($scope, menuFactory, corporateFactory) {
     $scope.promotion = menuFactory.getPromotion(0);
     $scope.featuredDish = {};
+    $scope.showDish = false;
+    $scope.message = 'Loading ...';
+
     menuFactory.getDish(0).then(
         function(response) {
             $scope.featuredDish = response.data;
+            $scope.showDish = true;
+        },
+        function(response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+            $scope.showDish = false;
         }
     );
     $scope.chef = corporateFactory.getLeader(3);
