@@ -30,7 +30,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('cleanserverdir', function() {
-    return del([serverDir]);
+    return del([serverDir], { force: true });
 });
 
 gulp.task('clear', function(done){
@@ -79,13 +79,13 @@ gulp.task('copyserver', ['cleanserverdir', 'usemin'], function() {
 // Watch
 gulp.task('watch', ['default'], function() {
     // Watch .js files
-    gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin']);
+    gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin', 'copyserver']);
     // Watch image files
-    gulp.watch('app/images/**/*', ['imagemin']);
+    gulp.watch('app/images/**/*', ['imagemin', 'copyserver']);
 
 });
 
-// doesnßt work without Visual Studio C++ compiler...
+// doesn't work without Visual Studio C++ compiler...
 //gulp.task('browser-sync', ['default'], function () {
 //    var files = [
 //        'app/**/*.html',

@@ -5,8 +5,15 @@ app.controller('MenuController', ['$scope', 'menuFactory', function($scope, menu
     'use strict';
 
     $scope.tab = 1;
-    $scope.dishes = menuFactory.getDishes();
     $scope.filtObj = { category: ""};
+    $scope.dishes = {};
+
+    menuFactory.getDishes()
+        .then(
+            function(response) {
+                $scope.dishes = response.data;
+            }
+        );
 
     $scope.select = function(tab) {
         $scope.tab = tab;
@@ -66,7 +73,13 @@ app.controller('FeedbackController', ['$scope', function($scope) {
 }]);
 
 app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
-    $scope.dish = menuFactory.getDish(parseInt($stateParams.id, 10));
+    $scope.dish = {};
+    menuFactory.getDish(parseInt($stateParams.id, 10))
+        .then(
+            function(response) {
+                $scope.dish = response.data;
+            }
+        );
 }]);
 
 app.controller('DishCommentController', ['$scope', function($scope) {
@@ -89,7 +102,12 @@ app.controller('DishCommentController', ['$scope', function($scope) {
 
 app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function($scope, menuFactory, corporateFactory) {
     $scope.promotion = menuFactory.getPromotion(0);
-    $scope.featuredDish = menuFactory.getDish(0);
+    $scope.featuredDish = {};
+    menuFactory.getDish(0).then(
+        function(response) {
+            $scope.featuredDish = response.data;
+        }
+    );
     $scope.chef = corporateFactory.getLeader(3);
 }]);
 
