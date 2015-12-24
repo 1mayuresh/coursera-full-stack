@@ -2,6 +2,9 @@ var app = angular.module('confusionApp');
 
 app.constant('baseURL', 'http://localhost:3000/');
 
+/**
+ * Menu Factorys
+ */
 app.service('menuFactory', ['$resource', 'baseURL', function($resource, baseURL) {
     'use strict';
 
@@ -18,16 +21,22 @@ app.service('menuFactory', ['$resource', 'baseURL', function($resource, baseURL)
     };
 }]);
 
+/**
+ * Corporate Factory
+ */
 app.factory('corporateFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-    var corpfac = {};
+    var corporateFactory = {};
 
-    corpfac.getLeaders = function() {
+    corporateFactory.getLeaders = function() {
         return $resource(baseURL + 'leadership/:id');
     };
 
-    return corpfac;
+    return corporateFactory;
 }]);
 
+/**
+ * Feedback Factory
+ */
 app.factory('feedbackFactory', ['$resource', 'baseURL', function($resource, baseURL) {
     var feedbackFactory = {};
 
@@ -36,4 +45,4 @@ app.factory('feedbackFactory', ['$resource', 'baseURL', function($resource, base
     };
 
     return feedbackFactory;
-}])
+}]);

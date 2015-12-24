@@ -1,6 +1,9 @@
 
 var app = angular.module('confusionApp');
 
+/**
+ * MenuController
+ */
 app.controller('MenuController', ['$scope', 'menuFactory', function($scope, menuFactory) {
     'use strict';
 
@@ -24,13 +27,14 @@ app.controller('MenuController', ['$scope', 'menuFactory', function($scope, menu
         $scope.tab = tab;
 
         if (tab === 2) {
-            $scope.filtObj = { category: "appetizer"};
+            // we only want to filter the category, so use an object instead of filtText
+            $scope.filtObj = { category: "appetizer" };
         } else if (tab === 3) {
-            $scope.filtObj = { category: "mains"};
+            $scope.filtObj = { category: "mains" };
         } else if (tab === 4) {
-            $scope.filtObj = { category: "dessert"};
+            $scope.filtObj = { category: "dessert" };
         } else {
-            $scope.filtObj = { category: ""};
+            $scope.filtObj = { category: "" };
         }
     };
 
@@ -45,6 +49,9 @@ app.controller('MenuController', ['$scope', 'menuFactory', function($scope, menu
     };
 }]);
 
+/**
+ * ContactController
+ */
 app.controller('ContactController', ['$scope', function($scope) {
     $scope.feedback = {
         mychannel: "",
@@ -54,10 +61,22 @@ app.controller('ContactController', ['$scope', function($scope) {
         email: ""
     };
 
-    $scope.channels = [{ value:"tel", label:"Tel."}, {value:"Email",label:"Email"}];
+    $scope.channels = [
+        {
+            value:"tel",
+            label:"Tel."
+        },
+        {
+            value:"Email",
+            label:"Email"
+        }
+    ];
     $scope.invalidChannelSelection = false;
 }]);
 
+/**
+ * FeedbackController
+ */
 app.controller('FeedbackController', ['$scope', 'feedbackFactory', function($scope, feedbackFactory) {
     var blankFeedback = {
         mychannel: "",
@@ -80,6 +99,9 @@ app.controller('FeedbackController', ['$scope', 'feedbackFactory', function($sco
     };
 }]);
 
+/**
+ * DishDetailController
+ */
 app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
     $scope.showDish = false;
     $scope.message = 'Loading ...';
@@ -97,6 +119,9 @@ app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory',
         );
 }]);
 
+/**
+ * DishCommentController
+ */
 app.controller('DishCommentController', ['$scope', 'menuFactory', function($scope, menuFactory) {
     var blankComment = {
         rating: 5,
@@ -116,6 +141,9 @@ app.controller('DishCommentController', ['$scope', 'menuFactory', function($scop
     };
 }]);
 
+/**
+ * IndexController
+ */
 app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function($scope, menuFactory, corporateFactory) {
     $scope.showDish = false;
     $scope.showPromotion = false;
@@ -161,6 +189,9 @@ app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 
         );
 }]);
 
+/**
+ * AboutController
+ */
 app.controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
     $scope.showLeaders = false;
 
