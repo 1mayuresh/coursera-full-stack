@@ -92,7 +92,7 @@ app.controller('FeedbackController', ['$scope', 'feedbackFactory', function($sco
             console.log('incorrect feedback');
         } else {
             $scope.invalidChannelSelection = false;
-            feedbackFactory.sendFeedback().save($scope.feedback);
+            feedbackFactory.sendFeedback($scope.feedback);
             $scope.feedback = angular.copy(blankFeedback);
             $scope.feedbackForm.$setPristine();
         }

@@ -40,8 +40,8 @@ app.factory('corporateFactory', ['$resource', 'baseURL', function($resource, bas
 app.factory('feedbackFactory', ['$resource', 'baseURL', function($resource, baseURL) {
     var feedbackFactory = {};
 
-    feedbackFactory.sendFeedback = function() {
-        return $resource(baseURL + 'feedback');
+    feedbackFactory.sendFeedback = function(feedback) {
+        return $resource(baseURL + 'feedback').save(feedback);
     };
 
     return feedbackFactory;
