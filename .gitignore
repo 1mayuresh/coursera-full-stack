@@ -1,4 +1,5 @@
 .idea/
 dist/
 *.zip
+*.db
 course3/json-server/public
