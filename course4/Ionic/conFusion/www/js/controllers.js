@@ -45,9 +45,10 @@ app.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
 /**
  * MenuController
  */
-app.controller('MenuController', ['$scope', 'menuFactory', function ($scope, menuFactory) {
+app.controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function ($scope, menuFactory, baseURL) {
     'use strict';
 
+    $scope.baseURL = baseURL;
     $scope.tab = 1;
     $scope.filtObj = {category: ""};
     $scope.showMenu = false;
@@ -143,7 +144,8 @@ app.controller('FeedbackController', ['$scope', 'feedbackFactory', function ($sc
 /**
  * DishDetailController
  */
-app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function ($scope, $stateParams, menuFactory) {
+app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', function ($scope, $stateParams, menuFactory, baseURL) {
+    $scope.baseURL = baseURL;
     $scope.showDish = false;
     $scope.message = 'Loading ...';
 
@@ -201,26 +203,28 @@ app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 
         );
     $scope.promotion = menuFactory.getPromotion().get({id:0});
 }]);
+
 /**
  * IndexController
  */
 /*
-app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', function ($scope, menuFactory, corporateFactory) {
+app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 'baseURL', function ($scope, menuFactory, corporateFactory, $baseURL) {
+    $scope.baseURL = baseURL;
     $scope.showDish = false;
     $scope.showPromotion = false;
     $scope.showLeader = false;
-    $scope.messageDish = 'Loading ...';
+    $scope.message = 'Loading ...';
     $scope.messagePromotion = 'Loading ...';
     $scope.messageLeader = 'Loading ...';
 
-    $scope.featuredDish = menuFactory.getDishes().get({id: 0})
+    $scope.dish = menuFactory.getDishes().get({id: 0})
         .$promise.then(
             function (response) {
-                $scope.featuredDish = response;
+                $scope.dish = response;
                 $scope.showDish = true;
             },
             function (response) {
-                $scope.messageDish = "Error: " + response.status + " " + response.statusText;
+                $scope.message = "Error: " + response.status + " " + response.statusText;
                 $scope.showDish = false;
             }
         );
