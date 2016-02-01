@@ -67,11 +67,10 @@ app.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
     };
 });
 
-
 /**
  * MenuController
  */
-app.controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function ($scope, menuFactory, baseURL) {
+app.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
     'use strict';
 
     $scope.baseURL = baseURL;
@@ -79,6 +78,13 @@ app.controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function (
     $scope.filtObj = {category: ""};
     $scope.showMenu = false;
     $scope.message = 'Loading...';
+
+    $scope.addFavorite = function(index) {
+        console.log("Menu index is " + index);
+        favoriteFactory.addToFavorites(index);
+        $ionicListDelegate.closeOptionButtons();
+    };
+
 
     $scope.dishes = menuFactory.getDishes().query(
         function (response) {
@@ -120,7 +126,7 @@ app.controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function (
 /**
  * ContactController
  */
-app.controller('ContactController', ['$scope', function ($scope) {
+app.controller('ContactController', ['$scope','favoriteFactory',  function ($scope, favoriteFactory) {
     $scope.feedback = {
         mychannel: "",
         firstName: "",
