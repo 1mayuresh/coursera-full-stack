@@ -257,16 +257,17 @@ app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 
 /**
  * AboutController
  */
-app.controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
+app.controller('AboutController', ['$scope', 'corporateFactory', 'baseURL', function ($scope, corporateFactory, baseURL) {
+    $scope.baseURL = baseURL;
     $scope.showLeaders = false;
 
-    $scope.leaders = corporateFactory.getLeaders().query(
+    $scope.leaders = corporateFactory.query(
         function (response) {
             $scope.leaders = response;
             $scope.showLeaders = true;
         },
         function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
+            $scope.message = "Could not load data (error " + response.status + " " + response.statusText + ")";
             $scope.showLeaders = false;
         }
     );
