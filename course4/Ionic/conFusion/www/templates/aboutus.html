@@ -21,7 +21,7 @@
           <li ng-if="!showLeaders">
             <h3>{{message}}</h3>
           </li>
-          <li ng-repeat="leader in leaders" class="item item-avatar" ng-if="showLeaders">
+          <li ng-repeat="leader in leaders" class="item item-avatar item-text-wrap" ng-if="showLeaders">
             <img ng-src="{{baseURL+leader.image}}" alt="{{leader.name}}">
             <h2>{{leader.name}}</h2>
             <h3>{{leader.designation}}</h3>
