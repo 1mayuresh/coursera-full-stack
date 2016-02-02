@@ -55,9 +55,22 @@ angular.module('conFusion.services', ['ngResource'])
                 if (favorites[i].id == index) {
                     return;
                 }
-
-                favorites.push({id: index});
             }
+
+            favorites.push({id: index});
+        };
+
+        favFac.deleteFromFavorites = function (index) {
+            for (var i = 0; i < favorites.length; i++) {
+                if (favorites[i].id == index) {
+                    favorites.splice(i, 1);
+                    console.log("Deleted Favorite: " + index);
+                }
+            }
+        };
+
+        favFac.getFavorites = function () {
+            return favorites;
         };
 
         return favFac;

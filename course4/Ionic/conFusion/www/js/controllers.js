@@ -80,7 +80,6 @@ app.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'b
     $scope.message = 'Loading...';
 
     $scope.addFavorite = function(index) {
-        console.log("Menu index is " + index);
         favoriteFactory.addToFavorites(index);
         $ionicListDelegate.closeOptionButtons();
     };
@@ -304,3 +303,46 @@ app.controller('AboutController', ['$scope', 'corporateFactory', 'baseURL', func
         }
     );
 }]);
+
+app.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
+
+    $scope.baseURL = baseURL;
+    $scope.shouldShowDelete = false;
+
+    $scope.favorites = favoriteFactory.getFavorites();
+
+    $scope.dishes = menuFactory.getDishes().query(
+        function (response) {
+            $scope.dishes = response;
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        });
+    console.log($scope.dishes, $scope.favorites);
+
+    $scope.toggleDelete = function () {
+        $scope.shouldShowDelete = !$scope.shouldShowDelete;
+        console.log($scope.shouldShowDelete);
+    };
+
+    $scope.deleteFavorite = function (index) {
+
+        favoriteFactory.deleteFromFavorites(index);
+        $scope.shouldShowDelete = false;
+
+    }}]
+);
+
+
+app.filter('favoriteFilter', function () {
+    return function (dishes, favorites) {
+        var out = [];
+        for (var i = 0; i < favorites.length; i++) {
+            for (var j = 0; j < dishes.length; j++) {
+                if (dishes[j].id === favorites[i].id)
+                    out.push(dishes[j]);
+            }
+        }
+
+        return out;
+    }});
