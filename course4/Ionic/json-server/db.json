@@ -6,7 +6,7 @@
       "image": "images/uthapizza.png",
       "category": "mains",
       "label": "Hot",
-      "price": "4.99",
+      "price": 4.99,
       "description": "A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.",
       "comments": [
         {
@@ -38,6 +38,30 @@
           "comment": "It's your birthday, we're gonna party!",
           "author": "25 Cent",
           "date": "2011-12-02T17:57:28.556094Z"
+        },
+        {
+          "rating": "2",
+          "comment": "aldskjf",
+          "author": "aldksjf",
+          "date": "2016-02-02T12:58:11.611Z"
+        },
+        {
+          "rating": "2",
+          "comment": "adsf",
+          "author": "adsf",
+          "date": "2016-02-02T12:59:18.526Z"
+        },
+        {
+          "rating": "4",
+          "comment": "Dong",
+          "author": "Ding",
+          "date": "2016-02-02T12:59:48.866Z"
+        },
+        {
+          "rating": "2",
+          "comment": "Bla balkdflaj  asdf asdf asddf asdfasdf asf asdf asdf asafdffd",
+          "author": "asdfasdf asddfasdf asddf asdf asdf asdfasdf asdfasdf asdfasdfasdf",
+          "date": "2016-02-02T13:18:22.248Z"
         }
       ]
     },
@@ -47,7 +71,7 @@
       "image": "images/zucchipakoda.png",
       "category": "appetizer",
       "label": "",
-      "price": "1.99",
+      "price": 1.99,
       "description": "Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce",
       "comments": [
         {
@@ -79,6 +103,12 @@
           "comment": "It's your birthday, we're gonna party!",
           "author": "25 Cent",
           "date": "2011-12-02T17:57:28.556094Z"
+        },
+        {
+          "rating": "3",
+          "comment": "yyyyyyyyyyy",
+          "author": "iiiiiiiiiii",
+          "date": "2016-02-02T13:03:01.415Z"
         }
       ]
     },

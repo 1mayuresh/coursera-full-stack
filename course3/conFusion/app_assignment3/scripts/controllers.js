@@ -87,7 +87,7 @@ angular.module('confusionApp')
 
                 $scope.dish.comments.push($scope.mycomment);
 
-                $scope.commentForm.$setPristine();
+                $scope.commentModal.$setPristine();
 
                 $scope.mycomment = {rating:5, comment:"", author:"", date:""};
             }

@@ -59,8 +59,8 @@ app.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
     $scope.doReserve = function () {
         console.log('Doing reservation', $scope.reservation);
 
-        // Simulate a reserve delay. Remove this and replace with your login
-        // code if using a login system
+        // Simulate a reserve delay. Remove this and replace with your reserve
+        // code
         $timeout(function () {
             $scope.closeReserve();
         }, 1000);
@@ -125,7 +125,7 @@ app.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'b
 /**
  * ContactController
  */
-app.controller('ContactController', ['$scope','favoriteFactory',  function ($scope, favoriteFactory) {
+app.controller('ContactController', ['$scope',  function ($scope) {
     $scope.feedback = {
         mychannel: "",
         firstName: "",
@@ -175,7 +175,7 @@ app.controller('FeedbackController', ['$scope', 'feedbackFactory', function ($sc
 /**
  * DishDetailController
  */
-app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', function ($scope, $stateParams, menuFactory, baseURL) {
+app.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover', '$ionicModal', 'menuFactory', 'favoriteFactory', 'baseURL', function ($scope, $stateParams, $ionicPopover, $ionicModal, menuFactory, favoriteFactory, baseURL) {
     $scope.baseURL = baseURL;
     $scope.showDish = false;
     $scope.message = 'Loading ...';
@@ -191,12 +191,41 @@ app.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory',
                 $scope.showDish = false;
             }
         );
-}]);
 
-/**
- * DishCommentController
- */
-app.controller('DishCommentController', ['$scope', 'menuFactory', function ($scope, menuFactory) {
+    $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+        scope: $scope
+    }).then(function (modal) {
+        $scope.commentModal = modal;
+    });
+
+    $scope.showPopover = function($event) {
+        $scope.popover.show($event);
+    };
+
+    $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+    });
+
+    $scope.addFavorite = function(index) {
+        favoriteFactory.addToFavorites(index);
+        $scope.popover.hide();
+    };
+
+    $scope.closeCommentModal = function () {
+        $scope.commentModal.hide();
+    };
+
+    $scope.openCommentModal = function () {
+        $scope.commentModal.show();
+        $scope.popover.hide();
+    };
+
     var blankComment = {
         rating: 5,
         comment: "",
@@ -210,12 +239,14 @@ app.controller('DishCommentController', ['$scope', 'menuFactory', function ($sco
         $scope.comment.date = new Date().toISOString();
         $scope.dish.comments.push($scope.comment);
         menuFactory.getDishes().update({id: $scope.dish.id}, $scope.dish);
-        $scope.commentForm.$setPristine();
         $scope.comment = angular.copy(blankComment);
+        $scope.closeCommentModal();
     };
 }]);
 
-
+/**
+ * IndexController
+ */
 app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 'baseURL', function($scope, menuFactory, corporateFactory, baseURL) {
 
     $scope.baseURL = baseURL;
@@ -235,56 +266,6 @@ app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 
     $scope.promotion = menuFactory.getPromotion().get({id:0});
 }]);
 
-/**
- * IndexController
- */
-/*
-app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 'baseURL', function ($scope, menuFactory, corporateFactory, $baseURL) {
-    $scope.baseURL = baseURL;
-    $scope.showDish = false;
-    $scope.showPromotion = false;
-    $scope.showLeader = false;
-    $scope.message = 'Loading ...';
-    $scope.messagePromotion = 'Loading ...';
-    $scope.messageLeader = 'Loading ...';
-
-    $scope.dish = menuFactory.getDishes().get({id: 0})
-        .$promise.then(
-            function (response) {
-                $scope.dish = response;
-                $scope.showDish = true;
-            },
-            function (response) {
-                $scope.message = "Error: " + response.status + " " + response.statusText;
-                $scope.showDish = false;
-            }
-        );
-
-    $scope.promotion = menuFactory.getPromotions().get({id: 0})
-        .$promise.then(
-            function (response) {
-                $scope.promotion = response;
-                $scope.showPromotion = true;
-            },
-            function (response) {
-                $scope.messagePromotion = "Error: " + response.status + " " + response.statusText;
-                $scope.showPromotion = false;
-            }
-        );
-
-    $scope.leader = corporateFactory.getLeaders().get({id: 3})
-        .$promise.then(
-            function (response) {
-                $scope.leader = response;
-                $scope.showLeader = true;
-            },
-            function (response) {
-                $scope.messageLeader = "Error: " + response.status + " " + response.statusText;
-                $scope.showLeader = false;
-            }
-        );
-}]);
-*/
 /**
  * AboutController
  */
@@ -367,4 +348,5 @@ app.filter('favoriteFilter', function () {
         }
 
         return out;
-    }});
+    }
+});

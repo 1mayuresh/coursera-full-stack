@@ -136,7 +136,7 @@ app.controller('DishCommentController', ['$scope', 'menuFactory', function($scop
         $scope.comment.date = new Date().toISOString();
         $scope.dish.comments.push($scope.comment);
         menuFactory.getDishes().update({id: $scope.dish.id}, $scope.dish);
-        $scope.commentForm.$setPristine();
+        $scope.commentModal.$setPristine();
         $scope.comment = angular.copy(blankComment);
     };
 }]);

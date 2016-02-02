@@ -174,7 +174,7 @@ angular.module('confusionApp', [])
                 $scope.dish.comments.push($scope.comment);
 
                 //Step 4: reset your form to pristine
-                $scope.commentForm.$setPristine();
+                $scope.commentModal.$setPristine();
 
                 //Step 5: reset your JavaScript object that holds your comment
                 $scope.comment = angular.copy(blankComment);
