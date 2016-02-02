@@ -84,7 +84,6 @@ app.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'b
         $ionicListDelegate.closeOptionButtons();
     };
 
-
     $scope.dishes = menuFactory.getDishes().query(
         function (response) {
             $scope.dishes = response;
@@ -331,7 +330,6 @@ app.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory
         });
 
         $scope.shouldShowDelete = false;
-
     }
 }]
 );
@@ -342,8 +340,9 @@ app.filter('favoriteFilter', function () {
         var out = [];
         for (var i = 0; i < favorites.length; i++) {
             for (var j = 0; j < dishes.length; j++) {
-                if (dishes[j].id === favorites[i].id)
+                if (dishes[j].id === favorites[i].id) {
                     out.push(dishes[j]);
+                }
             }
         }
 
