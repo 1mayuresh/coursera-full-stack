@@ -84,7 +84,7 @@ app.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'b
         $ionicListDelegate.closeOptionButtons();
     };
 
-    $scope.dishes = menuFactory.getDishes().query(
+    $scope.dishes = menuFactory.query(
         function (response) {
             $scope.dishes = response;
             $scope.showMenu = true;
@@ -179,7 +179,7 @@ app.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover
     $scope.showDish = false;
     $scope.message = 'Loading ...';
 
-    $scope.dish = menuFactory.getDishes().get({id: parseInt($stateParams.id, 10)})
+    $scope.dish = menuFactory.get({id: parseInt($stateParams.id, 10)})
         .$promise.then(
             function (response) {
                 $scope.dish = response;
@@ -237,21 +237,19 @@ app.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover
     $scope.submitComment = function () {
         $scope.comment.date = new Date().toISOString();
         $scope.dish.comments.push($scope.comment);
-        menuFactory.getDishes().update({id: $scope.dish.id}, $scope.dish);
+        menuFactory.update({id: $scope.dish.id}, $scope.dish);
+        $scope.commentForm.$setPristine();
         $scope.comment = angular.copy(blankComment);
         $scope.closeCommentModal();
     };
 }]);
 
-/**
- * IndexController
- */
-app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 'baseURL', function($scope, menuFactory, corporateFactory, baseURL) {
-
+app.controller('IndexController', ['$scope', 'menuFactory', 'promotionFactory', 'corporateFactory', 'baseURL', function($scope, menuFactory, promotionFactory, corporateFactory, baseURL) {
+    
     $scope.baseURL = baseURL;
     $scope.leader = corporateFactory.get({id:3});
     $scope.showDish = false;
-    $scope.message="Loading ...";
+    $scope.message = "Loading ...";
     $scope.dish = menuFactory.getDishes().get({id:0})
         .$promise.then(
             function(response){
@@ -262,7 +260,7 @@ app.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 
                 $scope.message = "Error: "+response.status + " " + response.statusText;
             }
         );
-    $scope.promotion = menuFactory.getPromotion().get({id:0});
+    $scope.promotion = promotionFactory.get({id:0});
 }]);
 
 /**
