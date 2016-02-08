@@ -174,11 +174,12 @@ app.controller('FeedbackController', ['$scope', 'feedbackFactory', function ($sc
 /**
  * DishDetailController
  */
-app.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover', '$ionicModal', 'menuFactory', 'favoriteFactory', 'baseURL', function ($scope, $stateParams, $ionicPopover, $ionicModal, menuFactory, favoriteFactory, baseURL) {
+app.controller('DishDetailController', ['$scope', '$stateParams', 'dish', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', function ($scope, $stateParams, dish, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal) {
     $scope.baseURL = baseURL;
     $scope.showDish = false;
     $scope.message = 'Loading ...';
-
+    $scope.dish = dish;
+/*
     $scope.dish = menuFactory.get({id: parseInt($stateParams.id, 10)})
         .$promise.then(
             function (response) {
@@ -190,7 +191,7 @@ app.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover
                 $scope.showDish = false;
             }
         );
-
+*/
     $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
         scope: $scope
     }).then(function(popover) {
@@ -245,12 +246,12 @@ app.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover
 }]);
 
 app.controller('IndexController', ['$scope', 'menuFactory', 'promotionFactory', 'corporateFactory', 'baseURL', function($scope, menuFactory, promotionFactory, corporateFactory, baseURL) {
-    
+
     $scope.baseURL = baseURL;
     $scope.leader = corporateFactory.get({id:3});
     $scope.showDish = false;
     $scope.message = "Loading ...";
-    $scope.dish = menuFactory.getDishes().get({id:0})
+    $scope.dish = menuFactory.get({id:0})
         .$promise.then(
             function(response){
                 $scope.dish = response;
@@ -282,14 +283,16 @@ app.controller('AboutController', ['$scope', 'corporateFactory', 'baseURL', func
     );
 }]);
 
-app.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
+app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, dishes, favorites, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
+    $scope.dishes = dishes;
+    $scope.favorites = favorites;
 
     $ionicLoading.show({
         template: '<ion-spinner></ion-spinner> Loading...'
     });
-
+/*
     $scope.favorites = favoriteFactory.getFavorites();
 
     $scope.dishes = menuFactory.getDishes().query(
@@ -305,7 +308,7 @@ app.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory
                 $ionicLoading.hide();
             }, 1000);
         });
-
+*/
     $scope.toggleDelete = function () {
         $scope.shouldShowDelete = !$scope.shouldShowDelete;
         console.log($scope.shouldShowDelete);
