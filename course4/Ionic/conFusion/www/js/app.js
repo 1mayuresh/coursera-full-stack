@@ -131,6 +131,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
                     }
                 }
             })
+
             .state('app.dishdetails', {
                 url: '/menu/:id',
                 views: {
