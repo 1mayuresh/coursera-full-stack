@@ -15,11 +15,12 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
                 cordova.plugins.Keyboard.disableScroll(true);
 
             }
+
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
             }
-            
+
             $rootScope.$on('loading:show', function () {
                 $ionicLoading.show({
                     template: '<ion-spinner></ion-spinner> Loading ...'
