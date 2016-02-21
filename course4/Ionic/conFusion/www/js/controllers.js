@@ -130,8 +130,8 @@ app.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $localStorage
         $scope.loadPictures = function() {
             $cordovaImagePicker.getPictures(pickerOptions)
                 .then(function (results) {
-                    for (var i = 0; i < results.length; i++) {
-                        console.log('Image URI: ' + results[i]);
+                    if (results.length > 0) {
+                        $scope.registration.imgSrc = results[0];
                     }
                 }, function (error) {
                     // error getting photos
