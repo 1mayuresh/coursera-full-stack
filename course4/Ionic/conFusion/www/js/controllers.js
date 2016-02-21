@@ -127,14 +127,16 @@ app.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $localStorage
             quality: 80
         };
 
-        $cordovaImagePicker.getPictures(pickerOptions)
-            .then(function (results) {
-                if (results.length > 0) {
-                    $scope.registration.imgSrc = results[0];
-                }
-            }, function(error) {
-                // error getting photos
-            });
+        $scope.loadPictures = function() {
+            $cordovaImagePicker.getPictures(pickerOptions)
+                .then(function (results) {
+                    for (var i = 0; i < results.length; i++) {
+                        console.log('Image URI: ' + results[i]);
+                    }
+                }, function (error) {
+                    // error getting photos
+                });
+        }
     });
 });
 
@@ -360,7 +362,7 @@ app.controller('AboutController', ['$scope', 'leaders', 'baseURL', function ($sc
 /**
  * FavoritesController
  */
-app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$cordovaVibration', function ($scope, dishes, favorites, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $cordovaVibration) {
+app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicPlatform', '$cordovaVibration', function ($scope, dishes, favorites, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicPlatform, $cordovaVibration) {
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
     $scope.dishes = dishes;
@@ -388,12 +390,14 @@ app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFac
             if (result) {
                 favoriteFactory.deleteFromFavorites(index);
                 $scope.favorites = favoriteFactory.getFavorites();
-                $cordovaVibration.vibrate(100);
+                $ionicPlatform.ready(function() {
+                    $cordovaVibration.vibrate(100);
+                });
             }
         });
 
         $scope.shouldShowDelete = false;
-    }
+    };
 }]);
 
 /**
