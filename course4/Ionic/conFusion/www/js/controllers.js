@@ -1,6 +1,6 @@
 var app = angular.module('conFusion.controllers', []);
 
-app.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $localStorage, $ionicPlatform, $cordovaCamera) {
+app.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $localStorage, $ionicPlatform, $cordovaCamera, $cordovaImagePicker) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -119,6 +119,22 @@ app.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $localStorage
 
             $scope.registerform.show();
         };
+
+        var pickerOptions = {
+            maximumImagesCount: 10,
+            width: 100,
+            height: 100,
+            quality: 80
+        };
+
+        $cordovaImagePicker.getPictures(pickerOptions)
+            .then(function (results) {
+                if (results.length > 0) {
+                    $scope.registration.imgSrc = results[0];
+                }
+            }, function(error) {
+                // error getting photos
+            });
     });
 });
 
@@ -242,7 +258,7 @@ app.controller('FeedbackController', ['$scope', 'feedbackFactory', function ($sc
 /**
  * DishDetailController
  */
-app.controller('DishDetailController', ['$scope', '$stateParams', 'dish', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', function ($scope, $stateParams, dish, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal) {
+app.controller('DishDetailController', ['$scope', '$stateParams', 'dish', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', '$ionicPlatform', '$cordovaLocalNotification', '$cordovaToast', function ($scope, $stateParams, dish, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal, $ionicPlatform, $cordovaLocalNotification, $cordovaToast) {
     $scope.baseURL = baseURL;
     $scope.dish = dish;
 
@@ -269,6 +285,29 @@ app.controller('DishDetailController', ['$scope', '$stateParams', 'dish', 'menuF
     $scope.addFavorite = function(index) {
         favoriteFactory.addToFavorites(index);
         $scope.popover.hide();
+
+        $ionicPlatform.ready(function () {
+            $cordovaLocalNotification.schedule({
+                id: 1,
+                title: "Added Favorite",
+                text: $scope.dish.name
+            }).then(
+                function () {
+                    console.log('Added Favorite ' + $scope.dish.name);
+                },
+                function () {
+                    console.log('Failed to add Notification ');
+                }
+            );
+
+            $cordovaToast
+                .show('Added Favorite ' + $scope.dish.name, 'long', 'center')
+                .then(function (success) {
+                    // success
+                }, function (error) {
+                    // error
+                });
+        });
     };
 
     $scope.closeCommentModal = function () {
@@ -321,7 +360,7 @@ app.controller('AboutController', ['$scope', 'leaders', 'baseURL', function ($sc
 /**
  * FavoritesController
  */
-app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', function ($scope, dishes, favorites, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup) {
+app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$cordovaVibration', function ($scope, dishes, favorites, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $cordovaVibration) {
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
     $scope.dishes = dishes;
@@ -349,15 +388,17 @@ app.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'menuFac
             if (result) {
                 favoriteFactory.deleteFromFavorites(index);
                 $scope.favorites = favoriteFactory.getFavorites();
+                $cordovaVibration.vibrate(100);
             }
         });
 
         $scope.shouldShowDelete = false;
     }
-}]
-);
+}]);
 
-
+/**
+ * Filters dishes according to the id's given in the favorites array.
+ */
 app.filter('favoriteFilter', function () {
     return function (dishes, favorites) {
         var out = [];
