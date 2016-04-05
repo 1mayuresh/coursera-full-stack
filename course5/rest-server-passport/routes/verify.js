@@ -36,11 +36,17 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 };
 
 exports.verifyAdmin = function (req, res, next) {
-    if (req.decoded._doc.admin) {
-        return next();
+    var err;
+    if (req.decoded) {
+        if (req.decoded._doc.admin) {
+            return next();
+        }
+
+        err = new Error('You are not an admin!');
+    } else {
+        err = new Error('You are not authenticated!');
     }
 
-    var err = new Error('You are not an admin!');
     err.status = 401;
     return next(err);
 };
