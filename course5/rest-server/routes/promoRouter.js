@@ -31,8 +31,7 @@ promoRouter.route('/')
             if(err) throw err;
             res.json(resp);
         });
-    })
-;
+    });
 
 promoRouter.route('/:promotionId')
 
@@ -59,7 +58,6 @@ promoRouter.route('/:promotionId')
             if (err) throw err;
             res.json(resp);
         });
-    })
-;
+    });
 
 module.exports = promoRouter;
