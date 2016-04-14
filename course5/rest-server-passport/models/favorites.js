@@ -2,20 +2,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var DishListSchema = new Schema({
-    dish: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Dish'
-    }
-});
-
 // create a schema
 var favoriteSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    dishes: [DishListSchema]
+    dishes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Dish'
+    }]
 }, {
     timestamps: true
 });
